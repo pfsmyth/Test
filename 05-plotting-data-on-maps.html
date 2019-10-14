@@ -1,0 +1,512 @@
+<!DOCTYPE html><html><head>
+      <title>05-plotting-data-on-maps</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\pfsmy\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.4.3\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+
+      
+      
+      
+      
+      
+      
+
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="plotting-data-on-maps-with-r">Plotting data on Maps with R</h1>
+
+<p>Putting data onto maps isn&apos;t really GIS, perhaps just a small subset of the GIS experience</p>
+<p>In this session we will have a quick look at how we can put data onto maps in R.</p>
+<p>We won&apos;t be learning any new R constucts, you can consider this as an exercise in making use of already existing R packages which you can download and install in your own R environment, if you don&apos;t already have them.</p>
+<h2 class="mume-header" id="using-the-leaflet-package-to-add-data-points">Using the Leaflet package to add data points</h2>
+
+<p>Leaflet is a mapping package originally written for Javascript. But there now exists R and Python ports of the package which are very popular.</p>
+<p>If you don&apos;t already have the <code>leaflet</code> package installed, you can do so using the following command in the console.</p>
+<pre data-role="codeBlock" data-info="r" class="language-r">install.packages<span class="token punctuation">(</span><span class="token string">&quot;leaflet&quot;</span><span class="token punctuation">)</span>
+</pre><p>Alternatively you can use the RStudio GUI; <code>packages</code> | <code>install</code> and type in &apos;leaflet&apos; in the second input box. You can let the other two boxes default to the values already in them.</p>
+<p>To use the <code>leaflet</code> package in your script, you include the following line of code;</p>
+<pre data-role="codeBlock" data-info="r" class="language-r">library<span class="token punctuation">(</span>leaflet<span class="token punctuation">)</span>
+</pre><p>We are now in a position to use functions included in the leaflet package.</p>
+<p>Like <code>ggplot</code>, <code>leaflet</code>, builds up the completed image in layers. We will demonstrate how this is done with the following code segments.</p>
+<p>As we did with the <code>dplyr</code> examples we will chain the individual function calls together using the pipeline operator <code>%&gt;%</code> provided by magrittr/</p>
+<ol>
+<li>Calling Leatlet() without any parameters or additions, essentially creates a blank canvas.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span>
+m
+</pre><p><img src="./fig/leaflet_canvas.jpg" alt="Leaflet Canvas"></p>
+<ol start="2">
+<li>If I include <code>addtiles()</code>, but without any details of the tile that I&#x2019;m interested in, then by default, I get a re-curring map of the world. Notice that the map is provided by Openstreetmaps. there is a more general function available called <code>addProvidertiles()</code> which allows you to select from a variety of map providers depending on the type of map you want. You can see some previes of them at this link: <a href="http://leaflet-extras.github.io/leaflet-providers/preview/">http://leaflet-extras.github.io/leaflet-providers/preview/</a><br>
+You should always cite the source of the map, although as you can see in the case of Openstreetmaps, this is done for you. The last thing to point out at this stage, if it is not obvious, is that you need an Internet connection for this to work.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+     addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span>   
+m
+</pre><p><img src="./fig/leaflet_world.jpg" alt="Leaflet Canvas"></p>
+<ol start="3">
+<li>Using the setview() function you can set the centre of map and the zoom level, i.e how much detail you want.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r"><span class="token comment"># set a center for the map and an initial zoom level</span>
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">51.478792</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">)</span> 
+m
+</pre><p><img src="./fig/leaflet_greenwich1.jpg" alt="Leaflet Canvas"></p>
+<ol start="4">
+<li>About the easiest thing you can do to a map is to add a simple popup with some data in it. In Leaflet this is done with the <code>addMarkers()</code> function. You need to specify the <em>longitude</em> and <em>latitude</em> values for the popup as well as the data which is to be displayed. In this example we have used a simple string value.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">popup_val <span class="token operator">&lt;-</span> <span class="token string">&quot;Hello Greenwich&quot;</span>
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">51.478792</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addMarkers<span class="token punctuation">(</span>lng<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> lat<span class="token operator">=</span><span class="token number">51.478792</span><span class="token punctuation">,</span> popup<span class="token operator">=</span>popup_val<span class="token punctuation">)</span>
+m
+</pre><p><img src="./fig/leaflet_greenwich2.jpg" alt="Leaflet Canvas"></p>
+<ol start="5">
+<li>The text for the popup is not limited to simple text. The string is interpreted as HTML so you can pass any valid HTML segment, such as a small table, allowing you to display formatted multiple items of text. Including in the example shown, hyperlinks.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r"><span class="token comment"># the text can be HTML which will be interpreted</span>
+<span class="token comment"># in this case the text is in bold and there is a link to a web page</span>
+
+popup_val <span class="token operator">&lt;-</span> <span class="token string">&quot;&lt;b&gt;Hello Greenwich&lt;/b&gt;&lt;br&gt;&lt;a href=&apos;https://greenwichmeantime.com/&apos;&gt;All about GMT&lt;/a&gt;&quot;</span>
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">51.478792</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addMarkers<span class="token punctuation">(</span>lng<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> lat<span class="token operator">=</span><span class="token number">51.478792</span><span class="token punctuation">,</span> popup<span class="token operator">=</span>popup_val<span class="token punctuation">)</span>
+m
+</pre><p><img src="./fig/leaflet_greenwich3.jpg" alt="Leaflet Canvas"></p>
+<ol start="6">
+<li>It is more likely that you will want several or many popups to be displayed on your map and that this data is available to you in a file. In this example we are using a file containing approx. 5000 post codes from Aberdeen.</li>
+</ol>
+<p>The file looks like this.</p>
+<p><img src="./fig/aberdeen_PC.jpg" alt="Leaflet Canvas"></p>
+<pre data-role="codeBlock" data-info="r" class="language-r">aberdeen <span class="token operator">&lt;-</span> read.csv<span class="token punctuation">(</span><span class="token string">&quot;./data/Aberdeen_PC.csv&quot;</span><span class="token punctuation">)</span>
+
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2.096647861</span><span class="token punctuation">,</span> <span class="token number">57.14822809</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addMarkers<span class="token punctuation">(</span>data <span class="token operator">=</span> aberdeen<span class="token punctuation">,</span> lng <span class="token operator">=</span> <span class="token operator">~</span> Long<span class="token punctuation">,</span> lat <span class="token operator">=</span> <span class="token operator">~</span> Lat<span class="token punctuation">,</span> popup <span class="token operator">=</span> aberdeen<span class="token operator">$</span>PC<span class="token punctuation">)</span>
+m
+</pre><p><img src="./fig/leaflet_aberdeen1.jpg" alt="Leaflet Canvas"></p>
+<p>This output is somewhat cluttered with nearly 5000 pop-ups on it. We will deal with this later.</p>
+<ol start="7">
+<li>You can use any data you like providing that each observation contains all of the data you need as well as the Long/Lat information. This example is hand coded to show three items of information taken from the first observation in the postcode file used previously.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r"><span class="token comment"># quite often we want several items of info in the popup</span>
+<span class="token comment"># we can do this by createing an HTML table structure and imbedding the required info.</span>
+<span class="token comment"># in this example we have hand coded the data</span>
+
+popup_val <span class="token operator">&lt;-</span> paste0<span class="token punctuation">(</span>&quot;<span class="token operator">&lt;</span>table width<span class="token operator">=</span><span class="token string">&apos;100%&apos;</span> cellspacing<span class="token operator">=</span><span class="token string">&apos;2&apos;</span> cellpadding<span class="token operator">=</span><span class="token string">&apos;0&apos;</span> border<span class="token operator">=</span><span class="token string">&apos;0&apos;</span> align<span class="token operator">=</span><span class="token string">&apos;center&apos;</span> bgcolor<span class="token operator">=</span><span class="token string">&apos;#ff6600&apos;</span><span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Post Code<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span>AB10 <span class="token number">1</span>AA<span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Name<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span>George St<span class="token operator">/</span>Harbour Ward<span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Admin Code<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                        <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span>S12000033<span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                     <span class="token operator">&lt;</span><span class="token operator">/</span>table<span class="token operator">&gt;</span>&quot;<span class="token punctuation">)</span>
+
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2.096647861</span><span class="token punctuation">,</span> <span class="token number">57.14822809</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addMarkers<span class="token punctuation">(</span>lng<span class="token operator">=</span><span class="token operator">-</span><span class="token number">2.096647861</span><span class="token punctuation">,</span> lat<span class="token operator">=</span><span class="token number">57.14822809</span><span class="token punctuation">,</span> popup<span class="token operator">=</span>popup_val<span class="token punctuation">)</span>
+m 
+</pre><p><img src="./fig/leaflet_aberdeen2.jpg" alt="Leaflet Canvas"></p>
+<ol start="8">
+<li>The next example combines the last two. Instead of hand coding a single popup we use the data in the file to create similar popups for all of the observations in the file.<br>
+At the same time instead of constructing the popup data on the fly, we could instead add the data as a new column in the data frame and then reference that in the popup when we call leaflet. The displayed map is the same, and we could save the augmented dataframe to a file for future use. Clearly this will add to size of the file, but it does make the coding a lot tidier.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">aberdeen<span class="token operator">$</span>popup <span class="token operator">&lt;-</span> paste0<span class="token punctuation">(</span>&quot;<span class="token operator">&lt;</span>table width<span class="token operator">=</span><span class="token string">&apos;100%&apos;</span> 
+                              cellspacing<span class="token operator">=</span><span class="token string">&apos;2&apos;</span> 
+                              cellpadding<span class="token operator">=</span><span class="token string">&apos;0&apos;</span> 
+                              border<span class="token operator">=</span><span class="token string">&apos;0&apos;</span> 
+                              align<span class="token operator">=</span><span class="token string">&apos;center&apos;</span> 
+                              bgcolor<span class="token operator">=</span><span class="token string">&apos;#ff6600&apos;</span><span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Post Code<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token string">&quot;, aberdeen$PC, &quot;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Name<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token string">&quot;, aberdeen$Name, &quot;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token operator">&lt;</span>b<span class="token operator">&gt;</span>Admin Code<span class="token operator">&lt;</span><span class="token operator">/</span>b<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span>td<span class="token operator">&gt;</span><span class="token string">&quot;, aberdeen$Admin, &quot;</span><span class="token operator">&lt;</span><span class="token operator">/</span>td<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>tr<span class="token operator">&gt;</span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>table<span class="token operator">&gt;</span>&quot;<span class="token punctuation">)</span>
+
+
+m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2.096647861</span><span class="token punctuation">,</span> <span class="token number">57.14822809</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addMarkers<span class="token punctuation">(</span>data <span class="token operator">=</span> aberdeen<span class="token punctuation">,</span> lng <span class="token operator">=</span> <span class="token operator">~</span> Long<span class="token punctuation">,</span> lat <span class="token operator">=</span> <span class="token operator">~</span> Lat<span class="token punctuation">,</span> 
+             popup <span class="token operator">=</span> <span class="token operator">~</span> popup<span class="token punctuation">)</span>
+m 
+</pre><p><img src="./fig/leaflet_aberdeen3.jpg" alt="Leaflet Canvas"></p>
+<ol start="9">
+<li>Finally, you will have noticed that plotting nearly 5000 popup on a single map create a bit of a mess. Leaflet does provide a way of reducing the clutter using the <code>addCircleMarkers()</code> function instead of the <code>addMarkers()</code> function. In general this works the same way as <code>addMarkers()</code>, there is an additional parameter which allows you to specify, how you want the popups to be clustered, but in our case the default is fine.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">m <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>  
+  setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2.096647861</span><span class="token punctuation">,</span> <span class="token number">57.14822809</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addCircleMarkers<span class="token punctuation">(</span>data <span class="token operator">=</span> aberdeen<span class="token punctuation">,</span> lng <span class="token operator">=</span> <span class="token operator">~</span> Long<span class="token punctuation">,</span> lat <span class="token operator">=</span> <span class="token operator">~</span> Lat<span class="token punctuation">,</span> radius <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span> 
+                   clusterOptions <span class="token operator">=</span> markerClusterOptions<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> popup <span class="token operator">=</span> <span class="token operator">~</span> popup<span class="token punctuation">)</span>
+m 
+</pre><p><img src="./fig/leaflet_aberdeen4.jpg" alt="Leaflet Canvas"></p>
+<ol start="10">
+<li>The map in the viewer like all of the others is <em>live</em>. Clicking on a numbered circle expands it and eventually you can drill down to the individual pop-ups. You can save the viewer image from RStudio using the <code>export</code> dropdown in the viewr tab. If you save it as an image, it will be a static image. If you save it as an HTML file, then this will behave in the same active way as the viewer image.<br><br> The <code>leaflet</code> package does not have a builtin function for saving a map, but you can install the <code>mapview</code> package which does.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r"><span class="token comment"># install.packages(&quot;mapview&quot;)</span>
+library<span class="token punctuation">(</span>mapview<span class="token punctuation">)</span>
+mapshot<span class="token punctuation">(</span>m<span class="token punctuation">,</span> url <span class="token operator">=</span> <span class="token string">&quot;m.html&quot;</span><span class="token punctuation">)</span>
+</pre><h2 class="mume-header" id="creating-a-choropleth-map-with-leaflet">Creating a Choropleth map with leaflet.</h2>
+
+<h3 class="mume-header" id="what-is-a-choropleth-map">What is a Choropleth map?</h3>
+
+<p>A Choropleth map is one in which we use shaded areas of the map to represent some aspect of our data.</p>
+<p>In our example we are going to use a parlimentry constituency map of England to create a &apos;pseudo&apos; population density map.</p>
+<h3 class="mume-header" id="getting-the-data">Getting the data</h3>
+
+<p>In order to create a Chorpleth map we need data which depict areas of the map as polygons. Normally provided as a set of ordered pairs of co-ordinates where each pair gives a longitude and latitude value and the last pair matches the first pair to as to complete the polygon.</p>
+<p>One of the most popular formats for providing theis polygon data is in a <code>shp</code> file.<br>
+This format was originally created by <a href="https://www.esri.com/en-us/home">ESRI</a> but is now used by many organisations providing mapping data. Certainly almost all R packages dealing with geographical mapping will be able to read a <code>shp</code> file.</p>
+<p>The <code>shp</code> file we are going to use id from the <a href="https://ukdataservice.ac.uk/">UK Data Service</a> and can be downloaded from this link <a href="https://borders.ukdataservice.ac.uk/easy_download_data.html?data=England_parl_2011">England_parl_2011</a></p>
+<p><img src="./fig/UKDS_parl.jpg" alt="UKDS Parlimentry shp file"></p>
+<p>A <code>shp</code> file is in fact a folder of files. When we unzip our downloaded file we have a folder called<br>
+&apos;England_parl_2011_gen_clipped&apos; containing;</p>
+<p><img src="./fig/shp_folder_contents.jpg" alt="shp folder contents"></p>
+<p>The contents of a <code>shp</code> folder can vary, but will always contain a <code>shp</code> file, which contains the polygons and a <code>dbf</code> file which is essentially a small database file containing information about the polygons. In this case constituency names and an <a href="https://www.ons.gov.uk/">ONS</a> provided code to uniquely identify the constituency.</p>
+<p>The &apos;TermsAndConditions.html&apos; has been added by the <a href="https://ukdataservice.ac.uk/">UK Data Service</a> to provide citation information.</p>
+<h3 class="mume-header" id="creating-the-map">Creating the map</h3>
+
+<p>To create ouer map we are going to use the <code>leaflet</code> package and a package called <code>rgdal</code> which you should install if you do not have it. If you you installed <code>mapview</code> in the previous section, it will have automatically have installed <code>rgdal</code> for you.</p>
+<pre data-role="codeBlock" data-info="r" class="language-r">library<span class="token punctuation">(</span>rgdal<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>leaflet<span class="token punctuation">)</span>
+</pre><ol>
+<li>The first line of code reads the . shp file. The dsn parameter is actually the folder name which contains the .shp file and the other files associated with it. The layer parameter gives the name of the .shp file. You do not specify the .shp extension. In most cases when you download a shape file you actually download the complete folder of files and the name of the shp file will typically match the name of the folder. Notice that in this case the folder name has a capital &#x2018;E&#x2019; for England whereas the shp file has a lowercase &#x2018;e&#x2019;.  Remember R is case sensitive.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">england <span class="token operator">&lt;-</span> readOGR<span class="token punctuation">(</span>dsn <span class="token operator">=</span> <span class="token string">&quot;./data/England_parl_2011_gen_clipped&quot;</span><span class="token punctuation">,</span> 
+                   layer <span class="token operator">=</span> <span class="token string">&quot;england_parl_2011_gen_clipped&quot;</span><span class="token punctuation">,</span> 
+                   encoding <span class="token operator">=</span> <span class="token string">&quot;UTF-8&quot;</span><span class="token punctuation">)</span>
+</pre><ol start="2">
+<li>The coordinate system used in the polygons from the UKDS use the OS Eastern and Northerns system (six digit numbers) Although other mapping software such a QGIS can recognise and use theses coordinate values directly Leaflet cannot. They need to be converted into Longitude and Latitude values. The first line indicates that the coordinate system is the UK Grid system (as used by OS) and the second line transform the coordinates into Longitude and Latitude. This can be confirmed by looking at the co-ordinate values in the england data structure.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">proj4string<span class="token punctuation">(</span>england<span class="token punctuation">)</span> <span class="token operator">&lt;-</span> CRS<span class="token punctuation">(</span><span class="token string">&quot;+init=epsg:27700&quot;</span><span class="token punctuation">)</span> <span class="token comment"># tells it to be UK Grid system </span>
+england <span class="token operator">&lt;-</span> spTransform<span class="token punctuation">(</span>england<span class="token punctuation">,</span> CRS<span class="token punctuation">(</span><span class="token string">&quot;+init=epsg:4326&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment"># converts to lat-long WGS84</span>
+</pre><ol start="3">
+<li>The next thing we need to do is to add some data that we want to display on the map. For this example I am going to make use of some information which is already provided in the spatial object, that is the area of the polygon. Essentially I am adding an<br>
+additional column (area) containing values of a continuous variable onto the data dataframe within the spatial object. You would want to add your own data at this point. You need to make sure that the data is associated with the correct polygon by ensuring that the observations are added in the correct order.<br><br> Once you have added your data you might optionally want to save your data and the coordinate conversion we made into a new shp file for future use.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">england<span class="token operator">@</span>data<span class="token operator">$</span>area <span class="token operator">&lt;-</span> sapply<span class="token punctuation">(</span>england<span class="token operator">@</span>polygons<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token number">1000</span><span class="token operator">*</span>x<span class="token operator">@</span>area<span class="token punctuation">)</span>
+
+<span class="token comment"># writeOGR(england, &quot;./data/england&quot;, &quot;england&quot;, driver=&quot;ESRI Shapefile&quot;)</span>
+</pre><ol start="4">
+<li>This line of code simply sets the colour scheme for the map and the map legend. Ten bins are used in which to place the value of the area variable graduated from Yellow to Blue. (Other options are available)</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">pal <span class="token operator">&lt;-</span> colorQuantile<span class="token punctuation">(</span>palette <span class="token operator">=</span> <span class="token string">&quot;YlGnBu&quot;</span><span class="token punctuation">,</span>domain <span class="token operator">=</span> england<span class="token operator">@</span>data<span class="token operator">$</span>area<span class="token punctuation">,</span> n <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span>
+</pre><ol start="5">
+<li>The final step is to draw the map. In this example we have specified the data source in the call to Leaflet itself, the addTiles and setView functions are much the same as before, we have an addLegend function to add the legend in the bottom right of the canvas. The <code>addPolygons</code> has the effect of drawing all of the polygons on the map using colour (in this case red) and shading the polygons based on the value of the area and usingthe palette of colours and the bins we have previously stablished. The addPolygons also has a popup parameter which is used to show the constituency name. Clicking within any polygon will display the appropriate Constituency name.</li>
+</ol>
+<pre data-role="codeBlock" data-info="r" class="language-r">leaflet<span class="token punctuation">(</span>data <span class="token operator">=</span> england<span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">52</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addLegend<span class="token punctuation">(</span><span class="token string">&quot;bottomright&quot;</span><span class="token punctuation">,</span> pal <span class="token operator">=</span> pal<span class="token punctuation">,</span> values <span class="token operator">=</span> <span class="token operator">~</span>area<span class="token punctuation">,</span>
+            title <span class="token operator">=</span> <span class="token string">&quot;Area size&quot;</span><span class="token punctuation">,</span>
+            opacity <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+  addPolygons<span class="token punctuation">(</span>fillColor <span class="token operator">=</span> <span class="token operator">~</span>pal<span class="token punctuation">(</span>area<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+              fillOpacity <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> 
+              color <span class="token operator">=</span> <span class="token string">&quot;#FF0000&quot;</span><span class="token punctuation">,</span> 
+              weight <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+              popup <span class="token operator">=</span> england<span class="token operator">$</span>name<span class="token punctuation">)</span>
+</pre><blockquote>
+<h2>Exercise</h2>
+<p>Using the same code to generate the map, assign it to a variable and then save the output to an html file.</p>
+</blockquote>
+<details><summary><b>Solution</b>  - click me</summary>
+<blockquote>
+<h2>Solution</h2>
+</blockquote>
+<pre data-role="codeBlock" data-info="r" class="language-r">parl_map <span class="token operator">&lt;-</span> leaflet<span class="token punctuation">(</span>data <span class="token operator">=</span> england<span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+            addTiles<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+            setView<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">52</span><span class="token punctuation">,</span> zoom <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+            addLegend<span class="token punctuation">(</span><span class="token string">&quot;bottomright&quot;</span><span class="token punctuation">,</span> pal <span class="token operator">=</span> pal<span class="token punctuation">,</span> values <span class="token operator">=</span> <span class="token operator">~</span>area<span class="token punctuation">,</span>
+              title <span class="token operator">=</span> <span class="token string">&quot;Area size&quot;</span><span class="token punctuation">,</span>
+              opacity <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%&gt;%</span>
+            addPolygons<span class="token punctuation">(</span>fillColor <span class="token operator">=</span> <span class="token operator">~</span>pal<span class="token punctuation">(</span>area<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+              fillOpacity <span class="token operator">=</span> <span class="token number">0.5</span><span class="token punctuation">,</span> 
+              color <span class="token operator">=</span> <span class="token string">&quot;#FF0000&quot;</span><span class="token punctuation">,</span> 
+              weight <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+              popup <span class="token operator">=</span> england<span class="token operator">$</span>name<span class="token punctuation">)</span>
+
+library<span class="token punctuation">(</span>mapview<span class="token punctuation">)</span>
+mapshot<span class="token punctuation">(</span>parl_map<span class="token punctuation">,</span> url <span class="token operator">=</span> <span class="token string">&quot;parl_map.html&quot;</span><span class="token punctuation">)</span>
+</pre></details>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
